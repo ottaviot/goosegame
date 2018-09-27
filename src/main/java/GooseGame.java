@@ -75,6 +75,8 @@ public class GooseGame {
                     newPosition = Integer.toString(currentPlayer.position += move);
                     if(currentPlayer.position > 63)
                         currentPlayer.position = 63 - (currentPlayer.position - 63);
+                    else if (currentPlayer.position == 6)
+                        currentPlayer.position += 6;
                 }
             }
 
@@ -95,6 +97,9 @@ public class GooseGame {
             switch (position) {
                 case "0":
                     position = "Start";
+                    break;
+                case "6":
+                    position = "The Bridge. " + player + " jumps to 12";
                     break;
                 case "63":
                     position += ". " + player + " Wins!!";

@@ -52,7 +52,7 @@ public class GooseGameTest {
         gooseGame.UserWrites("add player Pippo");
         gooseGame.UserWrites("add player Pluto");
         String position = gooseGame.UserWrites("move Pippo 4, 2");
-        assertThat(position, Is.is("Pippo rolls 4, 2. Pippo moves from Start to 6"));
+        assertThat(position, Is.is("Pippo rolls 4, 2. Pippo moves from Start to The Bridge. Pippo jumps to 12"));
     }
 
     @Test
@@ -68,10 +68,10 @@ public class GooseGameTest {
     public void Move3PlayerTest(){
         gooseGame.UserWrites("add player Pippo");
         gooseGame.UserWrites("add player Pluto");
-        gooseGame.UserWrites("move Pippo 4, 2");
+        gooseGame.UserWrites("move Pippo 3, 2");
         gooseGame.UserWrites("move Pluto 2, 2");
         String position = gooseGame.UserWrites("move Pippo 2, 3");
-        assertThat(position, Is.is("Pippo rolls 2, 3. Pippo moves from 6 to 11"));
+        assertThat(position, Is.is("Pippo rolls 2, 3. Pippo moves from 5 to 10"));
     }
 
     @Test
@@ -117,5 +117,14 @@ public class GooseGameTest {
         HttpResponse response = form.doGet();
 
         assertThat(response.getData(), Is.is("Pippo rolls 1, 2. Pippo moves from Start to 3"));
+    }
+
+    @Test
+    public void TheBridgeTest() {
+        gooseGame.UserWrites("add player Pippo");
+        gooseGame.UserWrites("move Pippo 2, 2");
+        String position = gooseGame.UserWrites("move Pippo 1, 1");
+
+        assertThat(position, Is.is("Pippo rolls 1, 1. Pippo moves from 4 to The Bridge. Pippo jumps to 12"));
     }
 }
