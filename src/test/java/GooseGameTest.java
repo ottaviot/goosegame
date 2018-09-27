@@ -75,5 +75,13 @@ public class GooseGameTest {
         assertThat(position, Is.is("Pippo rolls 3, 2. Pippo moves from 60 to 63. Pippo bounces! Pippo returns to 61"));
     }
 
+    @Test
+    public void AutomaticDicePlayerTest(){
+        GooseGame gooseGame = new GooseGame (new MockDice(1), new MockDice(2));
+        gooseGame.AddPlayer("add player Pippo");
+        gooseGame.UserWrites("move Pippo 2, 2");
+        String position = gooseGame.UserWrites("move Pippo");
+        assertThat(position, Is.is("Pippo rolls 1, 2. Pippo moves from 4 to 7"));
+    }
 
 }

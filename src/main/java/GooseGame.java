@@ -2,19 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooseGame {
+    private IDice dice1, dice2;
+
+    public GooseGame(IDice dice1, IDice dice2)
+    {
+        this.dice1 = dice1;
+        this.dice2 = dice2;
+    }
+
+    public GooseGame()
+    {
+    }
 
     private List<Board> boards = new ArrayList<>();
 
-    public String UserWrites(String input){
+    public String UserWrites(String input) {
         String command = input.split(" ")[0];
 
-        if(command.equals("add"))
+        if (command.equals("add"))
             return AddPlayer(input);
         else
             return MovePlayer(input);
     }
 
-    public String AddPlayer(String player){
+    public String AddPlayer(String player) {
         String newPlayer = player.split(" ")[2];
 
         if (IsPlayerAlreadyPresent(newPlayer))
@@ -27,10 +38,9 @@ public class GooseGame {
 
     private String getPlayersName() {
         String output = "";
-        for (Board currentPlayer: boards)
-        {
+        for (Board currentPlayer : boards) {
             if (!output.isEmpty())
-                output+= ", ";
+                output += ", ";
             output += currentPlayer.player;
         }
 
@@ -38,33 +48,36 @@ public class GooseGame {
     }
 
     private boolean IsPlayerAlreadyPresent(String newPlayer) {
-        for (Board currentPlayer: boards) {
+        for (Board currentPlayer : boards) {
             if (currentPlayer.player.equals(newPlayer))
                 return true;
         }
         return false;
     }
 
-
     public String MovePlayer(String command) {
         String[] temp = command.split(", | ");
-        String[] dice = {temp[2], temp[3]};
-        String player = temp[1];
-        int move = Integer.parseInt(dice[0]) + Integer.parseInt(dice[1]);
+        if (temp.length == 2) {
+            return MovePlayer(command + " " + dice1.roll() + ", " + dice2.roll());
+        } else {
+            String[] dice = {temp[2], temp[3]};
+            String player = temp[1];
+            int move = Integer.parseInt(dice[0]) + Integer.parseInt(dice[1]);
 
-        String startPosition = "", newPosition = "";
+            String startPosition = "", newPosition = "";
 
-        for (Board currentPlayer: boards) {
-            if (currentPlayer.player.equals(player)) {
-                startPosition = Integer.toString(currentPlayer.position);
-                newPosition = Integer.toString(currentPlayer.position += move);
+            for (Board currentPlayer : boards) {
+                if (currentPlayer.player.equals(player)) {
+                    startPosition = Integer.toString(currentPlayer.position);
+                    newPosition = Integer.toString(currentPlayer.position += move);
+                }
             }
+
+            startPosition = getParticularPosition(player, startPosition);
+            newPosition = getParticularPosition(player, newPosition);
+
+            return player + " rolls " + dice[0] + ", " + dice[1] + ". " + player + " moves from " + startPosition + " to " + newPosition;
         }
-
-        startPosition = getParticularPosition(player, startPosition);
-        newPosition = getParticularPosition(player, newPosition);
-
-        return player + " rolls " + dice[0]  + ", " + dice[1] + ". " +player + " moves from " + startPosition + " to " + newPosition;
     }
 
     private String getParticularPosition(String player, String position) {
