@@ -40,5 +40,24 @@ public class GooseGameTest {
         assertThat(position, Is.is("Pippo rolls 4, 2. Pippo moves from Start to 6"));
     }
 
+    @Test
+    public void Move2PlayerTest(){
+        gooseGame.AddPlayer("add player Pippo");
+        gooseGame.AddPlayer("add player Pluto");
+        gooseGame.UserWrites("move Pippo 4, 2");
+        String position = gooseGame.UserWrites("move Pluto 2, 2");
+        assertThat(position, Is.is("Pluto rolls 2, 2. Pluto moves from Start to 4"));
+    }
+
+    @Test
+    public void Move3PlayerTest(){
+        gooseGame.AddPlayer("add player Pippo");
+        gooseGame.AddPlayer("add player Pluto");
+        gooseGame.UserWrites("move Pippo 4, 2");
+        gooseGame.UserWrites("move Pluto 2, 2");
+        String position = gooseGame.UserWrites("move Pippo 2, 3");
+        assertThat(position, Is.is("Pippo rolls 2, 3. Pippo moves from 6 to 11"));
+    }
+
 
 }
