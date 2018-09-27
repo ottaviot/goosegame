@@ -61,12 +61,28 @@ public class GooseGame {
             }
         }
 
-        if(startPosition.equals("0"))
-            startPosition = "Start";
-
-        if(newPosition.equals("0"))
-            newPosition = "Start";
+        startPosition = getParticularPosition(player, startPosition);
+        newPosition = getParticularPosition(player, newPosition);
 
         return player + " rolls " + dice[0]  + ", " + dice[1] + ". " +player + " moves from " + startPosition + " to " + newPosition;
+    }
+
+    private String getParticularPosition(String player, String position) {
+
+        if(Integer.parseInt(position) > 63) {
+            position = Integer.toString(63 - (Integer.parseInt(position) - 63));
+            position = "63. " + player + " bounces! " + player + " returns to " + position;
+        }
+        else {
+            switch (position) {
+                case "0":
+                    position = "Start";
+                    break;
+                case "63":
+                    position += ". " + player + " Wins!!";
+                    break;
+            }
+        }
+        return position;
     }
 }

@@ -59,5 +59,21 @@ public class GooseGameTest {
         assertThat(position, Is.is("Pippo rolls 2, 3. Pippo moves from 6 to 11"));
     }
 
+    @Test
+    public void WinPlayerTest(){
+        gooseGame.AddPlayer("add player Pippo");
+        gooseGame.UserWrites("move Pippo 30, 30");
+        String position = gooseGame.UserWrites("move Pippo 1, 2");
+        assertThat(position, Is.is("Pippo rolls 1, 2. Pippo moves from 60 to 63. Pippo Wins!!"));
+    }
+
+    @Test
+    public void BouncePlayerTest(){
+        gooseGame.AddPlayer("add player Pippo");
+        gooseGame.UserWrites("move Pippo 30, 30");
+        String position = gooseGame.UserWrites("move Pippo 3, 2");
+        assertThat(position, Is.is("Pippo rolls 3, 2. Pippo moves from 60 to 63. Pippo bounces! Pippo returns to 61"));
+    }
+
 
 }
