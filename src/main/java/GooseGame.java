@@ -20,18 +20,17 @@ public class GooseGame {
         String command = input.split(" ")[0];
 
         if (command.equals("add"))
-            return AddPlayer(input);
+            return AddPlayer(input.split(" ")[2]);
         else
             return MovePlayer(input);
     }
 
     public String AddPlayer(String player) {
-        String newPlayer = player.split(" ")[2];
 
-        if (IsPlayerAlreadyPresent(newPlayer))
-            return newPlayer + ": already existing player";
+        if (IsPlayerAlreadyPresent(player))
+            return player + ": already existing player";
 
-        boards.add(new Board(newPlayer));
+        boards.add(new Board(player));
 
         return getPlayersName();
     }
@@ -59,7 +58,11 @@ public class GooseGame {
         String[] temp = command.split(", | ");
         if (temp.length == 2) {
             return MovePlayer(command + " " + dice1.roll() + ", " + dice2.roll());
-        } else {
+        }
+        else if (temp.length == 1) {
+            return MovePlayer("move " + command + " " + dice1.roll() + ", " + dice2.roll());
+        }
+        else {
             String[] dice = {temp[2], temp[3]};
             String player = temp[1];
             int move = Integer.parseInt(dice[0]) + Integer.parseInt(dice[1]);
