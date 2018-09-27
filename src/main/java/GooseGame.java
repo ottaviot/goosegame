@@ -73,6 +73,8 @@ public class GooseGame {
                 if (currentPlayer.player.equals(player)) {
                     startPosition = Integer.toString(currentPlayer.position);
                     newPosition = Integer.toString(currentPlayer.position += move);
+                    if(currentPlayer.position > 63)
+                        currentPlayer.position = 63 - (currentPlayer.position - 63);
                 }
             }
 
